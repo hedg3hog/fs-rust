@@ -59,9 +59,11 @@ fn full_search(bids : Vec<Bid>, best_value: u32, best_path: Vec<Bid>, current_pa
 }
 fn main() {
     let bids_ = load_bids("bids03-ID.json");
-    let selection = &bids_[..20];
+    let selection = &bids_[..28];
     println!("Bids to check: {}", selection.len());
+    let now = Instant::now();
     let (winner, value) = full_search(selection.to_vec(), 0, vec![], vec![]);
+    println!("Time: {}", now.elapsed().as_secs_f32());
     println!("value: {}", value);
     println!("winner len {}", winner.len());
     println!("winner sum {}", bid_sum(winner.clone()));
