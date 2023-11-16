@@ -59,7 +59,7 @@ fn full_search(bids_idx : Vec<usize>, best_value: u32, best_path: Vec<usize>, cu
 
 }
 fn main() {
-    let n: usize = 28;
+    let n: usize = 100;
     let bids_ = load_bids("bids03-ID.json");
     let selection = &bids_[..n];
     let selection = selection.to_vec();
