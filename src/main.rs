@@ -32,12 +32,14 @@ fn full_search(bids : Vec<Bid>, best_value: u32, best_path: Vec<Bid>, current_pa
     let mut best_value = best_value.clone();
     let mut best_path = best_path;
     for b in bids.clone(){
+        // break if best value can not be over bidden
         if bid_sum(bids.clone()) + bid_sum(current_path.clone()) < best_value {
             break;
         }
         let mut c_path = current_path.clone();
         c_path.push(b.clone());
-        let x =  bid_sum(c_path.clone()) + b.value;
+
+        let x =  bid_sum(c_path.clone());
         if  x > best_value {
             best_value = x;
             best_path = c_path.clone();
@@ -57,15 +59,13 @@ fn full_search(bids : Vec<Bid>, best_value: u32, best_path: Vec<Bid>, current_pa
 }
 fn main() {
     let bids_ = load_bids("bids03-ID.json");
-    let selection = &bids_[..11];
+    let selection = &bids_[..20];
+    println!("Bids to check: {}", selection.len());
     let (winner, value) = full_search(selection.to_vec(), 0, vec![], vec![]);
     println!("value: {}", value);
     println!("winner len {}", winner.len());
     println!("winner sum {}", bid_sum(winner.clone()));
 
-    for b in winner{
-        println!("{:?}:{}", b.items, b.value);
-    }
 
 
    
