@@ -1,8 +1,9 @@
 use std::fs::read_to_string;
+use std::process::exit;
 use std::time::Instant;
 use serde::{Deserialize, Serialize};
 use std::collections::HashSet;
-
+use std::{env, usize};
 
 #[derive(Serialize, Deserialize,PartialEq, Clone, )]
 struct Bid {
@@ -59,10 +60,15 @@ fn full_search(bids_idx : Vec<usize>, best_value: u32, best_path: Vec<usize>, cu
 
 }
 fn main() {
-    let n: usize = 100;
+    let args: Vec<String> = env::args().collect();
+    println!("{}", args[1].parse::<usize>().unwrap());
+    let n: usize = args[1].parse::<usize>().unwrap();
     let bids_ = load_bids("bids03-ID.json");
-    let selection = &bids_[..n];
-    let selection = selection.to_vec();
+    if n > bids_.len() {
+        println!("argument bigger than size of bids");
+        exit(1)
+    }
+    let selection = bids_[..n].to_vec();
     println!("Bids to check: {}", selection.len());
     let now = Instant::now();
     let (winner, value) = full_search((0..n).collect(), 0, vec![], vec![], &selection);
