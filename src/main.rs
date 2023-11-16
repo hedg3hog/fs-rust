@@ -16,6 +16,16 @@ fn load_bids(path: &str) -> Vec<Bid>{
     return bids
 }
 
+fn bid_sum(bids_idx: &[usize], bids : &[Bid]) -> i32 {
+    bids_idx.iter().map(|&b| bids[b].value).sum()
+}
+
+fn prune_bids(path: &[usize], list_to_check: Vec<usize>, bids: &[Bid]) -> Vec<usize> {
+    let sold: HashSet<u16> = path.iter().flat_map(|&b| bids[b].items.iter().cloned()).collect();
+    list_to_check.into_iter().filter(|&b| sold.is_disjoint(&bids[b].items)).collect()
+}
+
 fn main() {
     println!("Hello, world!");
 }
+
