@@ -69,15 +69,18 @@ fn main() {
         exit(1)
     }
     //let i = n;
+    println!("Bids_to_Check, Time_in_sec, value, winner_len, winner_sum");
     for i in 10..n {
         let selection = bids_[..i].to_vec();
-    println!("Bids to check: {}", selection.len());
+    //println!("Bids to check: {}", selection.len());
+    print!("{},", selection.len());
     let now = Instant::now();
     let (winner, value) = full_search((0..i).collect(), 0, vec![], vec![], &selection);
-    println!("Time: {}", now.elapsed().as_secs_f32());
-    println!("value: {}", value);
-    println!("winner len {}", winner.len());
-    println!("winner sum {}", bid_sum(&winner.clone(), &selection));
+    //println!("Time: {}", now.elapsed().as_secs_f32());
+    //println!("value: {}", value);
+    //println!("winner len {}", winner.len());
+    //println!("winner sum {}", bid_sum(&winner.clone(), &selection));
+    println!("{}, {}, {}, {}", now.elapsed().as_secs_f32(), value, winner.len(), bid_sum(&winner.clone(), &selection));
     if now.elapsed().as_secs() > 86400 {
         println!("Exiting...");
         exit(0);
