@@ -68,14 +68,22 @@ fn main() {
         println!("argument bigger than size of bids");
         exit(1)
     }
-    let selection = bids_[..n].to_vec();
+    //let i = n;
+    for i in 10..n {
+        let selection = bids_[..i].to_vec();
     println!("Bids to check: {}", selection.len());
     let now = Instant::now();
-    let (winner, value) = full_search((0..n).collect(), 0, vec![], vec![], &selection);
+    let (winner, value) = full_search((0..i).collect(), 0, vec![], vec![], &selection);
     println!("Time: {}", now.elapsed().as_secs_f32());
     println!("value: {}", value);
     println!("winner len {}", winner.len());
     println!("winner sum {}", bid_sum(&winner.clone(), &selection));
+    if now.elapsed().as_secs() > 86400 {
+        println!("Exiting...");
+        exit(0);
+    }
+    }
+    
 
 
 
